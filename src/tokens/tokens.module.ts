@@ -3,6 +3,6 @@ import { TokensService } from './tokens.service';
 import { TokensResolver } from './tokens.resolver';
 
 @Module({
-  providers: [TokensResolver, TokensService]
+  providers: [TokensResolver, TokensService],
 })
 export class TokensModule {}

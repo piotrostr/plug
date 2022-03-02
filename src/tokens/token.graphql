@@ -1,9 +1,0 @@
-type Query {
-  token: Token
-}
-
-type Token {
-  id: Int!
-  token: String
-  proxy: Proxy
-}
