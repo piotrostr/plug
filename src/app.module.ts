@@ -3,7 +3,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TokenModule } from './token/token.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -11,10 +10,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      autoSchemaFile: 'schema.graphql',
       debug: true,
       playground: true,
+      installSubscriptionHandlers: true,
     }),
-    TokenModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,0 +1,16 @@
+type Proxy {
+  id: Int!
+  username: String
+  password: String
+  host: String
+  port: Int
+  protocol: String = "http"
+}
+
+type Token {
+  id: Int!
+  token: String
+  proxy: Proxy
+}
+
+# gotta also create types for logging
