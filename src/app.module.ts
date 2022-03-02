@@ -3,18 +3,24 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
+import { TokensModule } from './tokens/tokens.module';
+import { ProxiesModule } from './proxies/proxies.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'schema.graphql',
+      typePaths: ['./**/*.graphql'],
       debug: true,
       playground: true,
       installSubscriptionHandlers: true,
+      definitions: {
+        path: join(process.cwd(), 'src/graphql.schema.ts'),
+      },
     }),
+    TokensModule,
+    ProxiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

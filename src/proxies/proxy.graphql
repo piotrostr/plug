@@ -1,0 +1,14 @@
+# gotta also create types for logging
+
+type Query {
+  proxy: Proxy
+}
+
+type Proxy {
+  id: Int!
+  username: String
+  password: String
+  host: String
+  port: Int
+  protocol: String
+}
