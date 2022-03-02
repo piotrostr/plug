@@ -1,0 +1,24 @@
+type Token {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input CreateTokenInput {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input UpdateTokenInput {
+  id: Int!
+}
+
+type Query {
+  token: [Token]!
+  token(id: Int!): Token
+}
+
+type Mutation {
+  createToken(createTokenInput: CreateTokenInput!): Token!
+  updateToken(updateTokenInput: UpdateTokenInput!): Token!
+  removeToken(id: Int!): Token
+}
