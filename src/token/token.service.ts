@@ -1,8 +1,8 @@
-import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { CreateTokenInput, UpdateTokenInput } from 'token/token.mutations';
-import { Token, TokenDocument } from 'token/token.schema';
+import { Model } from "mongoose";
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { CreateTokenInput, UpdateTokenInput } from "token/token.mutations";
+import { Token, TokenDocument } from "token/token.schema";
 
 @Injectable()
 export class TokenService {
@@ -28,8 +28,9 @@ export class TokenService {
       isCurrentlyUsed: false,
       needsVerification: false,
     });
-
-    return token.exec();
+    // TODO verify it updates (need a spec file I guess)
+    await token.update({ isCurrentlyUsed: true });
+    return token;
   }
 
   /**
@@ -38,9 +39,13 @@ export class TokenService {
    * */
   returnToken(updateTokenInput: UpdateTokenInput) {
     return updateTokenInput;
+    // TODO update the token entry
   }
 
-  getUnverifiedToken() {
-    return;
+  getUnverifiedToken(): Promise<Token> {
+    const unverifiedToken = this.tokenModel.findOne({
+      needsVerification: true,
+    });
+    return unverifiedToken.exec();
   }
 }
