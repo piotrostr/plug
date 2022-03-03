@@ -7,7 +7,14 @@ import { TokenController } from "./token.controller";
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Token.name, schema: TokenSchema }]),
+    MongooseModule.forFeatureAsync([
+      {
+        name: Token.name,
+        useFactory: async () => TokenSchema,
+        // schema.plugin(require('mongoose-autopopulate'));
+        // could use this once I run successfully
+      },
+    ]),
   ],
   controllers: [TokenController],
   providers: [TokenResolver, TokenService],
