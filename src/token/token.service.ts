@@ -29,7 +29,6 @@ export class TokenService {
       needsVerification: false,
     });
     // TODO verify it updates (need a spec file I guess)
-    await token.update({ isCurrentlyUsed: true });
     return token;
   }
 

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { TokenService } from "./token.service";
-import { CreateTokenInput, UpdateTokenInput } from "token/token.mutations";
-import { Token } from "token/token.schema";
+import { CreateTokenInput, UpdateTokenInput } from "./token.mutations";
+import { Token } from "./token.schema";
 
 @Controller("token")
 export class TokenController {
