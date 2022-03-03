@@ -83,6 +83,12 @@ describe("Token", () => {
       expect(res.status).toBe(200);
       expect(res.body).toEqual({});
     });
+
+    test("it returns unverified token if asked", async () => {
+      const res = await request(app).get("/token/unverified");
+      expect(res.status).toBe(200);
+      expect(res.body.needsVerification).toBe(true);
+    });
   });
 
   afterAll(async () => {
