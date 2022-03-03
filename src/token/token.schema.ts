@@ -3,7 +3,7 @@ import { Document } from "mongoose";
 
 @Schema()
 export class Token {
-  @Prop()
+  @Prop({ type: String, required: true, unique: true })
   token: string;
 
   @Prop({ default: false })

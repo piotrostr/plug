@@ -37,10 +37,11 @@ export class TokenService {
    * return token, update its status if
    * needed (banned, needs verification)
    * */
-  async returnToken(updateTokenInput: UpdateTokenInput): Promise<Token> {
-    return await this.tokenModel.findOneAndUpdate(updateTokenInput, {
-      isCurrentlyUsed: false,
-    });
+  async returnToken(updateTokenInput: UpdateTokenInput) {
+    await this.tokenModel.updateOne(
+      { token: updateTokenInput.token },
+      updateTokenInput,
+    );
   }
 
   /**

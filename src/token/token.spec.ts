@@ -1,4 +1,5 @@
 import * as request from "supertest";
+import { Model } from "mongoose";
 import { getModelToken } from "@nestjs/mongoose";
 import { Test, TestingModule } from "@nestjs/testing";
 import { HttpServer, INestApplication } from "@nestjs/common";
@@ -8,7 +9,7 @@ import {
   closeInMongodbConnection,
 } from "../mongo-memory";
 import { factory } from "fakingoose";
-import { Token, TokenSchema } from "./token.schema";
+import { Token, TokenSchema, TokenDocument } from "./token.schema";
 
 describe("Token", () => {
   const tokenFactory = factory(TokenSchema, {}).setGlobalObjectIdOptions({
@@ -16,6 +17,7 @@ describe("Token", () => {
   });
   let application: INestApplication;
   let app: HttpServer;
+  let tokenModel: Model<TokenDocument>;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -23,7 +25,7 @@ describe("Token", () => {
     }).compile();
     application = module.createNestApplication();
     await application.init();
-    const tokenModel = module.get(getModelToken(Token.name));
+    tokenModel = module.get<Model<TokenDocument>>(getModelToken(Token.name));
     for (let i = 0; i < 1000; i++) {
       tokenModel.create(tokenFactory.generate());
     }
@@ -43,27 +45,43 @@ describe("Token", () => {
       expect(token.isCurrentlyUsed).toBe(false);
     });
 
-    test("returns error if no tokens available", () => {
-      // return request(app.getHttpServer()).get("/token").expect(200);
+    test("token is marked as used after it is sent", async () => {
+      const res = await request(app).get("/token");
+      const token = res.body;
+      const tokenDb = await tokenModel.findOne({ token: token.token });
+      expect(tokenDb.isCurrentlyUsed).toBe(true);
     });
 
-    test("doesnt allow creating empty tokens", () => {
-      // TODO
-    });
-
-    test("adds token", async () => {
-      const res = await request(app)
-        .post("/token/add")
-        .send({ token: "asdf" });
-      expect(res.status).toBe(201);
-    });
-
-    test("can update token after getting it", async () => {
+    test("it returns token successfully", async () => {
       const res = await request(app).get("/token");
       expect(res.status).toBe(200);
       const token = res.body;
       token.isBanned = true;
-      // ...
+      const res2 = await request(app).post("/token/return").send(token);
+      expect(res2.status).toBe(201);
+      const dbToken = await tokenModel.findOne({ token: token.token });
+      expect(dbToken.isBanned).toBe(true);
+      expect(dbToken.isCurrentlyUsed).toBe(false);
+    });
+
+    test("adds token successfully", async () => {
+      const token = "asdf";
+      const res = await request(app).post("/token/add").send({ token });
+      expect(res.status).toBe(201);
+      const created = await tokenModel.findOne({ token });
+      expect(created).toBeTruthy();
+      expect(created.token).toBe(token);
+    });
+
+    test("returns empty if no tokens available", async () => {
+      await tokenModel.deleteMany({
+        isBanned: false,
+        isCurrentlyUsed: false,
+        needsVerification: false,
+      });
+      const res = await request(app).get("/token");
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual({});
     });
   });
 
