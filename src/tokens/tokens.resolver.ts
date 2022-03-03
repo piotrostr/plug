@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { TokensService } from './tokens.service';
-import { Token } from './token.model';
+import { Token } from './token.schema';
 import { CreateTokenInput, UpdateTokenInput } from './token.mutations';
 
 @Resolver(() => Token)

@@ -3,21 +3,13 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AppController } from 'app.controller';
 import { AppService } from 'app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
 import { TokensModule } from 'tokens/tokens.module';
 import { join } from 'path';
-import { Token } from 'tokens/token.model';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mongodb',
-      host: 'localhost',
-      database: 'test',
-      port: 27017,
-      synchronize: true,
-      entities: [Token],
-    }),
+    MongooseModule.forRoot('mongodb://localhost:27017'),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       installSubscriptionHandlers: true,
