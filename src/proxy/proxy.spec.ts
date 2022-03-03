@@ -43,6 +43,8 @@ describe("Proxy", () => {
     expect(proxy.port).toBeTruthy;
     expect(proxy.username).toBeTruthy;
     expect(proxy.password).toBeTruthy;
+    expect(proxy.isBanned).toBe(false);
+    expect(proxy.isCurrentlyUsed).toBe(false);
   });
 
   it("adds a proxy", async () => {
@@ -61,6 +63,22 @@ describe("Proxy", () => {
     expect(proxyDb).toBeTruthy;
     expect(proxyDb.username).toEqual(proxy.username);
     expect(proxyDb.password).toEqual(proxy.password);
+  });
+
+  it("returns proxy", async () => {
+    const res = await request(app).get("/proxy");
+    expect(res.status).toBe(200);
+    const proxy = res.body;
+    expect(proxy.isBanned).toBe(false);
+    proxy.isBanned = true;
+    // delete _id as it is immutable
+    delete proxy._id;
+    const res2 = await request(app).post("/proxy/return").send(proxy);
+    expect(res2.status).toBe(201);
+    // delete banned coz it wont get matched otherwise
+    delete proxy.isBanned;
+    const proxyDb = await proxyModel.findOne(proxy);
+    expect(proxyDb.isBanned).toBe(true);
   });
 
   afterAll(async () => {

@@ -19,23 +19,21 @@ export class ProxyService {
    * get proxy that is not banned, not used,
    * */
   async getProxy(): Promise<Proxy> {
-    return await this.proxyModel.findOne();
+    return await this.proxyModel.findOneAndUpdate(
+      {
+        isBanned: false,
+        isCurrentlyUsed: false,
+      },
+      { isCurrentlyUsed: true },
+    );
   }
 
   /**
    * return proxy, update its status if needed (if banned)
    * */
   async returnProxy(updateProxyInput: UpdateProxyInput): Promise<boolean> {
-    // TODO see some real life crud to see how to do it well
     const updatedProxy = this.proxyModel.updateOne(updateProxyInput);
     const result = await updatedProxy.exec();
     return result.acknowledged;
-  }
-
-  async getUnverifiedProxy(): Promise<Proxy> {
-    const unverifiedProxy = this.proxyModel.findOne({
-      needsVerification: true,
-    });
-    return unverifiedProxy.exec();
   }
 }

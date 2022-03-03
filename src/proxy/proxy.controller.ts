@@ -17,7 +17,7 @@ export class ProxyController {
     return await this.proxyService.getProxy();
   }
 
-  @Post()
+  @Post("return")
   async returnProxy(
     @Body() updateProxyInput: UpdateProxyInput,
   ): Promise<boolean> {
