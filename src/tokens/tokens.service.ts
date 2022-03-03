@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTokenInput } from './dto/create-token.input';
-import { UpdateTokenInput } from './dto/update-token.input';
+import { CreateTokenInput, UpdateTokenInput } from './token.mutations';
 
 @Injectable()
 export class TokensService {
-  create(createTokenInput: CreateTokenInput) {
-    return 'This action adds a new token';
+  /**
+   * creates a new unused, not banned token
+   * */
+  createToken(createTokenInput: CreateTokenInput) {
+    return createTokenInput;
   }
 
-  findAll() {
-    return `This action returns all tokens`;
+  /**
+   * get token that is not banned, not used,
+   * and doesnt need to be verified
+   * */
+  getToken() {
+    return;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} token`;
+  /**
+   * return token, update its status if
+   * needed (banned, needs verification)
+   * */
+  returnToken(updateTokenInput: UpdateTokenInput) {
+    return updateTokenInput;
   }
 
-  update(id: number, updateTokenInput: UpdateTokenInput) {
-    return `This action updates a #${id} token`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} token`;
+  getUnverifiedToken() {
+    return;
   }
 }

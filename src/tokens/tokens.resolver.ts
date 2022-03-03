@@ -1,8 +1,7 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { TokensService } from './tokens.service';
-import { Token } from './entities/token.entity';
-import { CreateTokenInput } from './dto/create-token.input';
-import { UpdateTokenInput } from './dto/update-token.input';
+import { Token } from './token.model';
+import { CreateTokenInput, UpdateTokenInput } from './token.mutations';
 
 @Resolver(() => Token)
 export class TokensResolver {
@@ -10,26 +9,21 @@ export class TokensResolver {
 
   @Mutation(() => Token)
   createToken(@Args('createTokenInput') createTokenInput: CreateTokenInput) {
-    return this.tokensService.create(createTokenInput);
+    return this.tokensService.createToken(createTokenInput);
   }
 
-  @Query(() => [Token], { name: 'tokens' })
-  findAll() {
-    return this.tokensService.findAll();
-  }
-
-  @Query(() => Token, { name: 'token' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.tokensService.findOne(id);
+  @Query(() => Token)
+  getToken() {
+    return this.tokensService.getToken();
   }
 
   @Mutation(() => Token)
-  updateToken(@Args('updateTokenInput') updateTokenInput: UpdateTokenInput) {
-    return this.tokensService.update(updateTokenInput.id, updateTokenInput);
+  returnToken(@Args('updateTokenInput') updateTokenInput: UpdateTokenInput) {
+    return this.tokensService.returnToken(updateTokenInput);
   }
 
-  @Mutation(() => Token)
-  removeToken(@Args('id', { type: () => Int }) id: number) {
-    return this.tokensService.remove(id);
+  @Query(() => Token)
+  getUnverifiedToken() {
+    return this.tokensService.getUnverifiedToken();
   }
 }

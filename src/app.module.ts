@@ -21,15 +21,3 @@ import { TokensModule } from './tokens/tokens.module';
   providers: [AppService],
 })
 export class ApplicationModule {}
-
-/*
-kaja zbrodnia skradzenia przyjazni
-
-zuzia rzysko byla z ada w klasie, a ona w ib
-
-stala i rozmawiala, domi wbila sie w ich rozmowe, powiedziala 'jest zuzia w
-szkole?' i zaczela do tej baby gadac i nawet nie powiedziala czesc adzie i
-zaczela gadac z tamta babka i ada poszla :(
-
-domi = zrodlo wkurwien
-*/
