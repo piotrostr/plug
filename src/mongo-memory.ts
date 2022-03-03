@@ -17,6 +17,6 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
 
 export const closeInMongodbConnection = async () => {
   if (mongodb) {
-    await mongodb.stop();
+    await mongodb.stop({ doCleanup: true });
   }
 };

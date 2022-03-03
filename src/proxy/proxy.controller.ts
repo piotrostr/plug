@@ -8,19 +8,19 @@ export class ProxyController {
   constructor(private readonly proxyService: ProxyService) {}
 
   @Post("add")
-  async createProxy(createProxyInput: CreateProxyInput): Promise<Proxy> {
-    return this.proxyService.createProxy(createProxyInput);
+  async createProxy(@Body() createProxyInput: CreateProxyInput) {
+    return await this.proxyService.createProxy(createProxyInput);
   }
 
   @Get()
   async getProxy(): Promise<Proxy> {
-    return this.proxyService.getProxy();
+    return await this.proxyService.getProxy();
   }
 
   @Post()
   async returnProxy(
     @Body() updateProxyInput: UpdateProxyInput,
   ): Promise<boolean> {
-    return this.proxyService.returnProxy(updateProxyInput);
+    return await this.proxyService.returnProxy(updateProxyInput);
   }
 }

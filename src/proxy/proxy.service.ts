@@ -11,21 +11,15 @@ export class ProxyService {
   ) {}
 
   async createProxy(createProxyInput: CreateProxyInput): Promise<Proxy> {
-    const proxy = new this.proxyModel(createProxyInput);
-    return proxy.save();
+    const addedProxy = new this.proxyModel(createProxyInput);
+    return addedProxy.save();
   }
 
   /**
    * get proxy that is not banned, not used,
    * */
   async getProxy(): Promise<Proxy> {
-    const proxy = this.proxyModel.findOne({
-      isBanned: false,
-      isCurrentlyUsed: false,
-    });
-    // TODO verify it updates (need a spec file I guess)
-    proxy.update({ isCurrentlyUsed: true }).exec();
-    return proxy;
+    return await this.proxyModel.findOne();
   }
 
   /**

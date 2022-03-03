@@ -3,16 +3,16 @@ import { Document } from "mongoose";
 
 @Schema()
 export class Proxy {
-  @Prop()
+  @Prop({ type: String, required: true })
   username: string;
 
-  @Prop()
+  @Prop({ type: String, required: true })
   password: string;
 
-  @Prop()
+  @Prop({ type: String, required: true })
   host: string;
 
-  @Prop()
+  @Prop({ type: Number, required: true })
   port: number;
 
   @Prop({ default: "http" })

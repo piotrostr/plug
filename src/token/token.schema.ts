@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
+// proxy could be added here at some point, depending on the impl
+// import { Proxy, ProxySchema } from "../proxy/proxy.schema";
 
 @Schema()
 export class Token {
@@ -14,6 +16,11 @@ export class Token {
 
   @Prop({ default: false })
   needsVerification: boolean;
+
+  /* 
+    @Prop({ type: ProxySchema })
+    proxy: Proxy;
+  */
 }
 
 export type TokenDocument = Token & Document;

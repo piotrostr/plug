@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import { Resolver, Query, Mutation, Args } from "@nestjs/graphql";
 import { TokenService } from "./token.service";
 import { Token } from "./token.schema";
