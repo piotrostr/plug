@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { TokenService } from "./token.service";
 import { CreateTokenInput, UpdateTokenInput } from "./token.mutations";
-import { Token, Error } from "./token.schema";
+import { Token } from "./token.schema";
 
 @Controller("token")
 export class TokenController {
@@ -13,18 +13,17 @@ export class TokenController {
   }
 
   @Get()
-  async getToken(): Promise<Token | Error> {
+  async getToken(): Promise<Token> {
     return await this.tokenService.getToken();
   }
 
   @Post("return")
   async returnToken(@Body() updateTokenInput: UpdateTokenInput) {
-    // TODO add awaits where required
-    return this.tokenService.returnToken(updateTokenInput);
+    return await this.tokenService.returnToken(updateTokenInput);
   }
 
   @Get("unverified")
   async getUnverifiedToken(): Promise<Token> {
-    return this.tokenService.getUnverifiedToken();
+    return await this.tokenService.getUnverifiedToken();
   }
 }

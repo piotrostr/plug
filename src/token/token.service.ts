@@ -2,7 +2,7 @@ import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { CreateTokenInput, UpdateTokenInput } from "./token.mutations";
-import { Error, Token, TokenDocument } from "./token.schema";
+import { Token, TokenDocument } from "./token.schema";
 
 @Injectable()
 export class TokenService {
@@ -22,29 +22,34 @@ export class TokenService {
    * get token that is not banned, not used,
    * and doesnt need to be verified
    * */
-  async getToken(): Promise<Token | Error> {
-    const token = this.tokenModel.findOne({
-      isBanned: false,
-      isCurrentlyUsed: false,
-      needsVerification: false,
-    });
-    // TODO verify it updates (need a spec file I guess)
-    return token;
+  async getToken(): Promise<Token> {
+    return await this.tokenModel.findOneAndUpdate(
+      {
+        isBanned: false,
+        isCurrentlyUsed: false,
+        needsVerification: false,
+      },
+      { isCurrentlyUsed: true },
+    );
   }
 
   /**
    * return token, update its status if
    * needed (banned, needs verification)
    * */
-  returnToken(updateTokenInput: UpdateTokenInput) {
-    return updateTokenInput;
-    // TODO update the token entry
+  async returnToken(updateTokenInput: UpdateTokenInput): Promise<Token> {
+    return await this.tokenModel.findOneAndUpdate(updateTokenInput, {
+      isCurrentlyUsed: false,
+    });
   }
 
-  getUnverifiedToken(): Promise<Token> {
+  /**
+   * return an unverified token (for the sake of verifying it)
+   * */
+  async getUnverifiedToken(): Promise<Token> {
     const unverifiedToken = this.tokenModel.findOne({
       needsVerification: true,
     });
-    return unverifiedToken.exec();
+    return await unverifiedToken.exec();
   }
 }
