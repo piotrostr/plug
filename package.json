@@ -84,7 +84,8 @@
     ],
     "coveragePathIgnorePatterns": [
       "resolver",
-      "mutations"
+      "mutations",
+      "main"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
