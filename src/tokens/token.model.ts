@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Proxy } from 'proxies/entities/proxy.entity';
+// import { Proxy } from 'proxies/entities/proxy.entity';
 
 @ObjectType()
 export class Token {

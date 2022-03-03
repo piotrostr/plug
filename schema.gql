@@ -1,0 +1,46 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Token {
+  """user token string"""
+  token: String!
+
+  """whether token is used by a bot at the moment"""
+  isCurrentlyUsed: Boolean!
+
+  """whether token is banned or not"""
+  isBanned: Boolean!
+
+  """whether token requires verification"""
+  needsVerification: Boolean!
+}
+
+type Query {
+  getToken: Token!
+  getUnverifiedToken: Token!
+}
+
+type Mutation {
+  createToken(createTokenInput: CreateTokenInput!): Token!
+  returnToken(updateTokenInput: UpdateTokenInput!): Token!
+}
+
+input CreateTokenInput {
+  """Token"""
+  token: String!
+}
+
+input UpdateTokenInput {
+  """Token"""
+  token: String
+
+  """whether token is used by a bot at the moment"""
+  isCurrentlyUsed: Boolean = false
+
+  """whether token is banned or not"""
+  isBanned: Boolean = false
+
+  """whether token requires verification"""
+  needsVerification: Boolean = false
+}
