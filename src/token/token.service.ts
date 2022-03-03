@@ -1,11 +1,11 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreateTokenInput, UpdateTokenInput } from 'tokens/token.mutations';
-import { Token, TokenDocument } from 'tokens/token.schema';
+import { CreateTokenInput, UpdateTokenInput } from 'token/token.mutations';
+import { Token, TokenDocument } from 'token/token.schema';
 
 @Injectable()
-export class TokensService {
+export class TokenService {
   constructor(
     @InjectModel(Token.name) private tokenModel: Model<TokenDocument>,
   ) {}

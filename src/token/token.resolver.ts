@@ -1,11 +1,11 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { TokensService } from './tokens.service';
+import { TokenService } from './token.service';
 import { Token } from './token.schema';
 import { CreateTokenInput, UpdateTokenInput } from './token.mutations';
 
 @Resolver(() => Token)
-export class TokensResolver {
-  constructor(private readonly tokensService: TokensService) {}
+export class TokenResolver {
+  constructor(private readonly tokensService: TokenService) {}
 
   @Mutation(() => Token)
   createToken(@Args('createTokenInput') createTokenInput: CreateTokenInput) {
