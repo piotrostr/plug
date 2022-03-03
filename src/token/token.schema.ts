@@ -1,6 +1,10 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 
+export interface Error {
+  error: string;
+}
+
 @Schema()
 export class Token {
   @Prop()

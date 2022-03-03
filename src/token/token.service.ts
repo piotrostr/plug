@@ -2,7 +2,7 @@ import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { CreateTokenInput, UpdateTokenInput } from "./token.mutations";
-import { Token, TokenDocument } from "./token.schema";
+import { Error, Token, TokenDocument } from "./token.schema";
 
 @Injectable()
 export class TokenService {
@@ -22,7 +22,7 @@ export class TokenService {
    * get token that is not banned, not used,
    * and doesnt need to be verified
    * */
-  async getToken(): Promise<Token> {
+  async getToken(): Promise<Token | Error> {
     const token = this.tokenModel.findOne({
       isBanned: false,
       isCurrentlyUsed: false,

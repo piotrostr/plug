@@ -11,8 +11,6 @@ import { TokenController } from "./token.controller";
       {
         name: Token.name,
         useFactory: async () => TokenSchema,
-        // schema.plugin(require('mongoose-autopopulate'));
-        // could use this once I run successfully
       },
     ]),
   ],
