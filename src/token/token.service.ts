@@ -9,6 +9,7 @@ export class TokenService {
   constructor(
     @InjectModel(Token.name) private tokenModel: Model<TokenDocument>,
   ) {}
+
   /**
    * creates a new unused, not banned token
    * */
@@ -29,7 +30,6 @@ export class TokenService {
     });
 
     return token.exec();
-    // also mutate
   }
 
   /**
