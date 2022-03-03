@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
-import { TokenService } from "token/token.service";
-import { TokenResolver } from "token/token.resolver";
+import { TokenService } from "./token.service";
+import { TokenResolver } from "./token.resolver";
 import { MongooseModule } from "@nestjs/mongoose";
-import { Token, TokenSchema } from "token/token.schema";
-import { TokenController } from "token/token.controller";
+import { Token, TokenSchema } from "./token.schema";
+import { TokenController } from "./token.controller";
 
 @Module({
   imports: [

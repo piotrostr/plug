@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
-import { ProxyService } from "proxy/proxy.service";
-import { Proxy } from "proxy/proxy.schema";
-import { CreateProxyInput, UpdateProxyInput } from "proxy/proxy.mutations";
+import { ProxyService } from "./proxy.service";
+import { Proxy } from "./proxy.schema";
+import { CreateProxyInput, UpdateProxyInput } from "./proxy.mutations";
 
 @Controller("proxy")
 export class ProxyController {

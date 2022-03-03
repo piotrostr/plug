@@ -1,26 +1,21 @@
-import { Model } from "mongoose";
-import { TokenController } from "./token.controller";
-import { CreateTokenInput } from "./token.mutations";
-import { TokenService } from "./token.service";
-import { Token } from "./token.schema";
+import * as request from "supertest";
+import { Test, TestingModule } from "@nestjs/testing";
+import { TokenModule } from "./token.module";
+import { INestApplication } from "@nestjs/common";
 
 describe("Token", () => {
-  let controller: TokenController;
-  let service: TokenService;
-
-  const tokenInput: CreateTokenInput = {
-    token: "tokenion svp",
-  };
+  let app: INestApplication;
 
   beforeEach(async () => {
-    service = new TokenService(new Model<Token>());
-    controller = new TokenController(service);
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [TokenModule],
+    }).compile();
+    app = module.createNestApplication();
   });
 
   describe("it works", () => {
-    it("should create a token", async () => {
-      const result = await controller.createToken(tokenInput);
-      console.log(result);
+    it("should create a token", () => {
+      return request(app.getHttpServer()).get("/token").expect(200);
     });
   });
 });

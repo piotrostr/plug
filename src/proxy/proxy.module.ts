@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { ProxyService } from "proxy/proxy.service";
-import { ProxyResolver } from "proxy/proxy.resolver";
-import { Proxy, ProxySchema } from "proxy/proxy.schema";
-import { ProxyController } from "proxy/proxy.controller";
+import { ProxyService } from "./proxy.service";
+import { ProxyResolver } from "./proxy.resolver";
+import { Proxy, ProxySchema } from "./proxy.schema";
+import { ProxyController } from "./proxy.controller";
 
 @Module({
   imports: [

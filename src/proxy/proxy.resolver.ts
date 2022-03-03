@@ -1,5 +1,5 @@
-import { Resolver } from '@nestjs/graphql';
-import { ProxyService } from './proxy.service';
+import { Resolver } from "@nestjs/graphql";
+import { ProxyService } from "./proxy.service";
 
 @Resolver()
 export class ProxyResolver {

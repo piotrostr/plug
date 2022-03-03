@@ -1,8 +1,8 @@
 import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Proxy, ProxyDocument } from "proxy/proxy.schema";
-import { CreateProxyInput, UpdateProxyInput } from "proxy/proxy.mutations";
+import { Proxy, ProxyDocument } from "./proxy.schema";
+import { CreateProxyInput, UpdateProxyInput } from "./proxy.mutations";
 
 @Injectable()
 export class ProxyService {
