@@ -12,7 +12,7 @@ export class TokensService {
   /**
    * creates a new unused, not banned token
    * */
-  createToken(createTokenInput: CreateTokenInput): Promise<Token> {
+  async createToken(createTokenInput: CreateTokenInput): Promise<Token> {
     const addedToken = new this.tokenModel(createTokenInput);
     return addedToken.save();
   }
@@ -21,7 +21,7 @@ export class TokensService {
    * get token that is not banned, not used,
    * and doesnt need to be verified
    * */
-  getToken(): Promise<Token> {
+  async getToken(): Promise<Token> {
     const token = this.tokenModel.findOne({
       isBanned: false,
       isCurrentlyUsed: false,
