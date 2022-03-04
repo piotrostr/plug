@@ -5,9 +5,11 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { TokenModule } from "./token/token.module";
 import { ProxyModule } from "./proxy/proxy.module";
 
+const host = process.env.MONGO_HOST || "localhost";
+
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://localhost:27017/test"),
+    MongooseModule.forRoot(`mongodb://${host}:27017/db`),
     TokenModule,
     ProxyModule,
   ],
