@@ -1,20 +1,17 @@
 version: "3.8"
-
 services:
-  mongodb:
-    image: mongo:latest
-    ports:
-      - 27017:27017
-    restart: always
   api:
     depends_on:
       - db
-    links:
-      - db
-    build: 
-      context: .
-      target: production
-    environment:
-      - MONGO_HOST="mongodb"
+    container_name: api
+    restart: always
+    build: .
     ports:
       - 3000:3000
+    environment:
+      - MONGO_HOST=db
+  db:
+    image: mongo
+    container_name: db
+    ports:
+      - 27017:27017
