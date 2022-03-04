@@ -4,14 +4,15 @@ services:
     depends_on:
       - db
     container_name: api
-    restart: always
     build: .
     ports:
       - 3000:3000
     environment:
       - MONGO_HOST=db
+    restart: always
   db:
     image: mongo
     container_name: db
     ports:
       - 27017:27017
+    restart: always
