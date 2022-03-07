@@ -17,12 +17,14 @@ export class ProxyService {
 
   /**
    * get proxy that is not banned, not used,
+   * -- for now making it so that any proxy is there,
+   * -- since not yet in production
    * */
   async getProxy(): Promise<Proxy> {
     return await this.proxyModel.findOneAndUpdate(
       {
         isBanned: false,
-        isCurrentlyUsed: false,
+        // isCurrentlyUsed: false,
       },
       { isCurrentlyUsed: true },
     );

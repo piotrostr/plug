@@ -5,15 +5,14 @@ WORKDIR /app
 
 COPY package.json package.json
 COPY yarn.lock yarn.lock
+RUN yarn
+COPY . .
 
 FROM base as testing
 ENV NODE_ENV testing
-RUN yarn
-COPY . .
 CMD ["yarn", "test:cov"] 
 
 FROM base as production
 ENV NODE_ENV production
-RUN yarn
-COPY . .
-CMD ["yarn", "start:prod"]
+RUN yarn build
+CMD ["node", "dist/main"]

@@ -3,7 +3,7 @@ import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { ApplicationModule } from "./app.module";
 
 async function bootstrap() {
-  const app = await NestFactory.create(ApplicationModule);
+  const app = await NestFactory.create(ApplicationModule, { cors: true });
 
   const config = new DocumentBuilder()
     .setTitle("Plug API")
