@@ -4,15 +4,14 @@ services:
     depends_on:
       - db
     container_name: api
-    build: .
+    image: piotrostr/plug
     ports:
       - 3000:3000
     environment:
       - MONGO_HOST=db
-    restart: always
   db:
     image: mongo
     container_name: db
     ports:
       - 27017:27017
-    restart: always
+    # TODO add mounted volue to preserve tokens
