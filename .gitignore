@@ -37,3 +37,4 @@ lerna-debug.log*
 proxies.txt
 
 mongodb
+.env

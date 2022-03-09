@@ -24,7 +24,7 @@ export class ProxyService {
     return await this.proxyModel.findOneAndUpdate(
       {
         isBanned: false,
-        // isCurrentlyUsed: false,
+        isCurrentlyUsed: false,
       },
       { isCurrentlyUsed: true },
     );
