@@ -10,9 +10,10 @@ import {
 } from "../mongo-memory";
 import { factory } from "fakingoose";
 import { Proxy, ProxySchema, ProxyDocument } from "./proxy.schema";
+import { ConfigModule } from "@nestjs/config";
 
 describe("Proxy", () => {
-  const apiKey = process.env.API_KEY;
+  let apiKey: string;
   const proxyFactory = factory(ProxySchema, {}).setGlobalObjectIdOptions({
     tostring: false,
   });
@@ -22,14 +23,15 @@ describe("Proxy", () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), ProxyModule],
+      imports: [rootMongooseTestModule(), ProxyModule, ConfigModule.forRoot()],
     }).compile();
-    application = module.createNestApplication();
-    await application.init();
     proxyModel = module.get<Model<ProxyDocument>>(getModelToken(Proxy.name));
+    apiKey = process.env.API_KEY || "";
     for (let i = 0; i < 1000; i++) {
       proxyModel.create(proxyFactory.generate());
     }
+    application = module.createNestApplication();
+    await application.init();
   });
 
   beforeEach(() => {
