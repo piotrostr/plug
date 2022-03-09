@@ -12,6 +12,7 @@ import { factory } from "fakingoose";
 import { Proxy, ProxySchema, ProxyDocument } from "./proxy.schema";
 
 describe("Proxy", () => {
+  const apiKey = process.env.API_KEY;
   const proxyFactory = factory(ProxySchema, {}).setGlobalObjectIdOptions({
     tostring: false,
   });
@@ -35,8 +36,13 @@ describe("Proxy", () => {
     app = application.getHttpServer();
   });
 
-  it("gets a proxy", async () => {
+  it("requires an api key", async () => {
     const res = await request(app).get("/proxy");
+    expect(res.status).toBe(401);
+  });
+
+  it("gets a proxy", async () => {
+    const res = await request(app).get("/proxy").set("Authorization", apiKey);
     expect(res.status).toBe(200);
     const proxy = res.body;
     expect(proxy.host).toBeTruthy;
@@ -54,7 +60,10 @@ describe("Proxy", () => {
       host: "asdf",
       port: 1234,
     };
-    const res = await request(app).post("/proxy/add").send(proxy);
+    const res = await request(app)
+      .post("/proxy/add")
+      .send(proxy)
+      .set("Authorization", apiKey);
     expect(res.status).toBe(201);
     const proxyDb = await proxyModel.findOne({
       host: proxy.host,
@@ -66,14 +75,17 @@ describe("Proxy", () => {
   });
 
   it("returns proxy", async () => {
-    const res = await request(app).get("/proxy");
+    const res = await request(app).get("/proxy").set("Authorization", apiKey);
     expect(res.status).toBe(200);
     const proxy = res.body;
     expect(proxy.isBanned).toBe(false);
     proxy.isBanned = true;
     // delete _id as it is immutable
     delete proxy._id;
-    const res2 = await request(app).post("/proxy/return").send(proxy);
+    const res2 = await request(app)
+      .post("/proxy/return")
+      .send(proxy)
+      .set("Authorization", apiKey);
     expect(res2.status).toBe(201);
     // delete banned coz it wont get matched otherwise
     delete proxy.isBanned;
