@@ -13,10 +13,10 @@ import { Proxy, ProxySchema, ProxyDocument } from "./proxy.schema";
 import { ConfigModule } from "@nestjs/config";
 
 describe("Proxy", () => {
-  let apiKey: string;
   const proxyFactory = factory(ProxySchema, {}).setGlobalObjectIdOptions({
     tostring: false,
   });
+  let apiKey: string;
   let application: INestApplication;
   let app: HttpServer;
   let proxyModel: Model<ProxyDocument>;
