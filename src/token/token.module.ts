@@ -4,6 +4,7 @@ import { TokenResolver } from "./token.resolver";
 import { MongooseModule } from "@nestjs/mongoose";
 import { Token, TokenSchema } from "./token.schema";
 import { TokenController } from "./token.controller";
+import { AuthModule } from "../auth/auth.module";
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { TokenController } from "./token.controller";
         useFactory: async () => TokenSchema,
       },
     ]),
+    AuthModule,
   ],
   controllers: [TokenController],
   providers: [TokenResolver, TokenService],

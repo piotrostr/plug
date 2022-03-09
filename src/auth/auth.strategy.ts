@@ -8,7 +8,7 @@ type Done = (error: Error, data: any) => any;
 @Injectable()
 export class HeaderApiKeyStrategy extends PassportStrategy(
   Strategy,
-  "api-key",
+  "apiKey",
 ) {
   constructor(private readonly configService: ConfigService) {
     super(
