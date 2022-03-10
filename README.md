@@ -1,27 +1,24 @@
-this api has to use websockets, with different endpoints for different bots?
-
-websockets bcs of logging? actually could also add custom transport for winston
-
-each session should have a unique identifier to then simplify debugging
-
-on dropping the connection the tokens and proxies come back to owner?
-
-gotta find a new proxy, cos the one used right now is expiring, could be the same one actually
-
-got to also recognize the costs and see how the maintenance goes
-
-still though main purpose is to finish the signup process, may need to find another number provider
-
-all in all as I search for the provider this server can be sorted
-
-it might be working on a local connection basis but I think it should have a domain and some sort of an api key
-
-or could also create a big vpn to contain all of the architecture and make it speak localhost to each other
-
-ye this is better idea
-
-for the database dont need anything fancy, there will only be one database to start with
-
-will just use sqlite :)
-
-that is about it
+<h1 align="center">
+  Plug
+</h1>
+<br />
+<p>
+  NestJS api to serve as a connector server between generators and messengers
+</p>
+<div align="center">
+  <a href="https://github.com/piotrostr/plug/blob/HEAD/MIT">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="mit" />
+  </a>
+  <a href="https://github.com/piotrostr/plug/actions/workflows/main.yml">
+    <img src="https://github.com/piotrostr/plug/actions/workflows/main.yml/badge.svg" />
+  </a>
+  <a href="https://www.codefactor.io/repository/github/piotrostr/plug">
+    <img src="https://www.codefactor.io/repository/github/piotrostr/plug/badge" alt="CodeFactor" />
+  </a>
+  <a href="https://codecov.io/gh/piotrostr/plug">
+    <img src="https://codecov.io/gh/piotrostr/plug/branch/main/graph/badge.svg?token=zXTysoqOXv"/>
+  </a>
+  <a href="https://en.cryptobadges.io/donate/0x2eD29d982B0120d49899a7cC7AfE7f5d5435bC97">
+    <img src="https://camo.githubusercontent.com/e96ba7a90d666c76a314e022e072252435a4b271d63b5959e0d4cd7fdbb1032e/68747470733a2f2f656e2e63727970746f6261646765732e696f2f62616467652f6d6963726f2f307865386364663032656664386162306134393064376232636231333535333338396339626339333265" alt="donate-eth" />
+  </a>
+</div>
