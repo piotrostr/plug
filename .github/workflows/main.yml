@@ -13,15 +13,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@master
 
+      - name: Install Yarn
+        run: npm i -g yarn
+
       - name: Install Deps
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: install 
+        run: yarn
 
       - name: Run Tests
-        uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: test:cov
+        run: yarn test:cov
 
       - name: Codecov
         uses: codecov/codecov-action@master
