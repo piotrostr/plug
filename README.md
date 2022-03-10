@@ -1,5 +1,5 @@
 <h1 align="center">
-  Plug
+  Plug 🔌 
 </h1>
 <br />
 <div align="center">
