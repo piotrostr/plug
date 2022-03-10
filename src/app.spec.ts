@@ -3,15 +3,21 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { HttpServer, INestApplication } from "@nestjs/common";
 import { ApplicationModule } from "./app.module";
 import { ConfigModule } from "@nestjs/config";
+import { MongooseModule } from "@nestjs/mongoose";
 
 describe("App", () => {
+  const host = process.env.MONGO_HOST || "localhost";
   let application: INestApplication;
   let app: HttpServer;
   let apiKey: string;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ApplicationModule, ConfigModule.forRoot()],
+      imports: [
+        MongooseModule.forRoot(`mongodb://${host}:27017/db`),
+        ApplicationModule,
+        ConfigModule.forRoot(),
+      ],
     }).compile();
     apiKey = process.env.API_KEY;
     application = module.createNestApplication();
