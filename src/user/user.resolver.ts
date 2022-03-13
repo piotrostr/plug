@@ -23,7 +23,7 @@ export class UserResolver {
   }
 
   @Query(() => User)
-  getUnverifiedUser() {
-    return this.usersService.getUnverifiedUser();
+  getPhoneUnverifiedUser() {
+    return this.usersService.getPhoneUnverifiedUser();
   }
 }
