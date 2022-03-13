@@ -20,7 +20,8 @@ export class UserService {
       {
         isBanned: false,
         isCurrentlyUsed: false,
-        needsVerification: false,
+        phoneVerified: true,
+        emailVerified: true,
       },
       { isCurrentlyUsed: true },
     );
@@ -28,7 +29,7 @@ export class UserService {
 
   async returnUser(updateUserInput: UpdateUserInput) {
     await this.userModel.updateOne(
-      { user: updateUserInput.user },
+      { _id: updateUserInput._id },
       updateUserInput,
     );
   }

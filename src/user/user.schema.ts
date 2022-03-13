@@ -7,19 +7,19 @@ export class User {
   token: string;
 
   @Prop({ type: String, unique: true, required: true })
-  username: string;
+  email: string;
 
   @Prop({ type: String, unique: true, required: true })
-  email: string;
+  username: string;
+
+  @Prop({ type: String, required: true })
+  password: string;
 
   @Prop({ type: String, required: true })
   country: string;
 
   @Prop({ type: String, unique: true, required: true })
   number: string;
-
-  @Prop({ type: String, required: true })
-  password: string;
 
   @Prop({ type: Number })
   dayOfBirth: number;

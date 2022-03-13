@@ -8,6 +8,9 @@ export class CreateUserInput {
 
 @InputType()
 export class UpdateUserInput extends PartialType(CreateUserInput) {
+  @Field(() => String)
+  _id: string;
+
   @Field(() => Boolean)
   isCurrentlyUsed: boolean;
 

@@ -47,15 +47,19 @@ describe("User", () => {
     const res = await request(app).get("/user").set("Authorization", apiKey);
     expect(res.status).toBe(200);
     const user = res.body;
-    expect(user.needsVerification).toBe(false);
-    expect(user.isBanned).toBe(false);
+    expect(user.token).toBeTruthy();
+    expect(user.username).toBeTruthy();
+    expect(user.password).toBeTruthy();
+    expect(user.phoneVerified).toBe(true);
+    expect(user.emailVerified).toBe(true);
     expect(user.isCurrentlyUsed).toBe(false);
+    expect(user.isBanned).toBe(false);
   });
 
   test("user is marked as used after it is sent", async () => {
     const res = await request(app).get("/user").set("Authorization", apiKey);
     const user = res.body;
-    const userDb = await userModel.findOne({ user: user.user });
+    const userDb = await userModel.findOne({ _id: user._id });
     expect(userDb.isCurrentlyUsed).toBe(true);
   });
 
@@ -69,21 +73,29 @@ describe("User", () => {
       .send(user)
       .set("Authorization", apiKey);
     expect(res2.status).toBe(201);
-    const dbUser = await userModel.findOne({ user: user.user });
+    const dbUser = await userModel.findOne({ _id: user._id });
     expect(dbUser.isBanned).toBe(true);
     expect(dbUser.isCurrentlyUsed).toBe(false);
   });
 
   test("adds user successfully", async () => {
-    const user = "asdf";
+    const user = {
+      token: "asdf",
+      username: "asdf",
+      password: "asdf",
+      email: "asdf",
+      country: "asdf",
+      number: "asdf",
+    };
     const res = await request(app)
       .post("/user/add")
-      .send({ user })
+      .send(user)
       .set("Authorization", apiKey);
     expect(res.status).toBe(201);
-    const created = await userModel.findOne({ user });
+    const created = await userModel.findOne({ token: user.token });
     expect(created).toBeTruthy();
-    // expect(created.user).toBe(user);
+    expect(created.username).toBe(user.username);
+    expect(created.password).toBe(user.password);
   });
 
   test("returns empty if no users available", async () => {
@@ -97,12 +109,14 @@ describe("User", () => {
     expect(res.body).toEqual({});
   });
 
-  test("it returns unverified user if asked", async () => {
+  test("it returns phone unverified user if asked", async () => {
     const res = await request(app)
-      .get("/user/unverified")
+      .get("/user/phone-unverified")
       .set("Authorization", apiKey);
     expect(res.status).toBe(200);
-    expect(res.body.needsVerification).toBe(true);
+    const user = res.body;
+    expect(user.phoneVerified).toBe(false);
+    expect(user.emailVerified).toBe(true);
   });
 
   afterAll(async () => {
