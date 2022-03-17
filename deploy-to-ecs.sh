@@ -1,7 +1,7 @@
 #!/bin/bash
 
 docker context use default && \
-  docker compose build && \
-  docker compose push && \
+  docker compose --file ecs-compose.yml build && \
+  docker compose --file ecs-compose.yml push && \
   docker context use plug-ecs-context && \
-  docker compose up
+  docker compose --file ecs-compose.yml up
