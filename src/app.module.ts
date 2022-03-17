@@ -12,6 +12,10 @@ const user = process.env.MONGO_INITDB_ROOT_USERNAME;
 const pass = process.env.MONGO_INITDB_ROOT_PASSWORD;
 const uri = `mongodb://${host}:27017/db`;
 
+if (!host || !user || !pass) {
+  throw Error("environment variables missing");
+}
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
