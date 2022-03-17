@@ -7,14 +7,11 @@ import { ProxyModule } from "./proxy/proxy.module";
 import { ConfigModule } from "@nestjs/config";
 import { AuthModule } from "./auth/auth.module";
 
-const host = process.env.MONGO_HOST || "localhost";
+const host = process.env.MONGO_HOST; // || "http://localhost"
 const user = process.env.MONGO_INITDB_ROOT_USERNAME;
 const pass = process.env.MONGO_INITDB_ROOT_PASSWORD;
 const uri = `mongodb://${host}:27017/db`;
-
-if (!host || !user || !pass) {
-  throw Error("environment variables missing");
-}
+console.log(host, user, pass);
 
 @Module({
   imports: [
