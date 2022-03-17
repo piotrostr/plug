@@ -12,8 +12,8 @@ services:
     environment:
       - MONGO_HOST=db
   db:
+    env_file: .env
     image: mongo
     container_name: db
     ports:
       - 27017:27017
-    # TODO add mounted volue to preserve tokens
