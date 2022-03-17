@@ -2,8 +2,8 @@ version: "3.8"
 
 services:
   api:
-    env_file: ./.env
-    build: .
+    build: 
+      context: .
     image: piotrostr/plug
     platform: linux/amd64
     depends_on:
@@ -13,8 +13,12 @@ services:
       - 3000:3000
     environment:
       - MONGO_HOST=db
+      - MONGO_INITDB_ROOT_USERNAME=/run/secrets/mongo_password
+      - MONGO_INITDB_ROOT_PASSWORD=/run/secrets/mongo_username
+    secrets:
+      - mongo_username
+      - mongo_password
   db:
-    env_file: ./.env
     image: mongo
     container_name: db
     ports:
@@ -23,15 +27,15 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=/run/secrets/mongo_password
       - MONGO_INITDB_ROOT_PASSWORD=/run/secrets/mongo_username
     secrets:
-      - MONGO_INITDB_ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD
+      - mongo_username
+      - mongo_password
 
 secrets:
-  MONGO_INITDB_ROOT_USERNAME:
+  mongo_username:
     name: "arn:aws:secretsmanager:us-east-2:118170873718:secret:MONGO_INITDB_ROOT_USERNAME-hw15kA"
     x-aws-keys:
       - "mongo_username"
-  MONGO_INITDB_ROOT_PASSWORD: 
+  mongo_password: 
     name: "arn:aws:secretsmanager:us-east-2:118170873718:secret:MONGO_INITDB_ROOT_PASSWORD-9eHmGs"
     x-aws-keys:
       - "mongo_password"
