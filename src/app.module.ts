@@ -7,19 +7,13 @@ import { ProxyModule } from "./proxy/proxy.module";
 import { ConfigModule } from "@nestjs/config";
 import { AuthModule } from "./auth/auth.module";
 
-const host = process.env.MONGO_HOST; // || "http://localhost"
-const user = process.env.MONGO_INITDB_ROOT_USERNAME;
-const pass = process.env.MONGO_INITDB_ROOT_PASSWORD;
-const uri = `mongodb://${host}:27017/db`;
-console.log(host, user, pass);
-
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    MongooseModule.forRoot(uri, {
+    ConfigModule.forRoot({ envFilePath: ".env" }),
+    MongooseModule.forRoot(`mongodb://${process.env.MONGO_HOST}:27017/db`, {
       authSource: "admin",
-      user,
-      pass,
+      user: process.env.MONGO_INITDB_ROOT_USERNAME,
+      pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
     }),
     UserModule,
     ProxyModule,
