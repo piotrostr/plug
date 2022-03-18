@@ -21,9 +21,6 @@ export class User {
   @Prop({ type: String, unique: true })
   number: string;
 
-  @Prop({ type: String, unique: true })
-  tzid: number;
-
   @Prop({ type: Number })
   dayOfBirth: number;
 
