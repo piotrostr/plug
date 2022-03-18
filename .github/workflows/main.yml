@@ -3,6 +3,8 @@ on: ["push", "pull_request"]
 env:
   API_KEY: ${{ secrets.API_KEY }}
   MONGO_HOST: ${{ secrets.MONGO_HOST }}
+  MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+  MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
 
 jobs:
   test:
