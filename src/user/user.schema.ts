@@ -18,7 +18,7 @@ export class User {
   @Prop({ type: String })
   country: string;
 
-  @Prop({ type: String, unique: true })
+  @Prop({ type: String })
   number: string;
 
   @Prop({ type: Number })
