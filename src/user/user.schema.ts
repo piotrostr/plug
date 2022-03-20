@@ -34,6 +34,9 @@ export class User {
   isCurrentlyUsed: boolean;
 
   @Prop({ type: Boolean, default: false })
+  isUnderVerification: boolean;
+
+  @Prop({ type: Boolean, default: false })
   isBanned: boolean;
 
   @Prop({ type: Boolean, default: false })

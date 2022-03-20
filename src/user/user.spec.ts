@@ -63,6 +63,16 @@ describe("User", () => {
     expect(userDb.isCurrentlyUsed).toBe(true);
   });
 
+  test("user is marked as under verification", async () => {
+    const res = await request(app)
+      .get("/user/phone-unverified")
+      .set("Authorization", apiKey);
+    expect(res.status).toBe(200);
+    const user = res.body;
+    const userDb = await userModel.findOne({ _id: user._id });
+    expect(userDb.isUnderVerification).toBe(true);
+  });
+
   test("it returns user successfully", async () => {
     const res = await request(app).get("/user").set("Authorization", apiKey);
     expect(res.status).toBe(200);
