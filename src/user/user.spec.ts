@@ -119,7 +119,7 @@ describe("User", () => {
     expect(res.body).toEqual({});
   });
 
-  test("it returns phone unverified user if asked", async () => {
+  test("it returns phone unverified, currently not under verifiaction", async () => {
     const res = await request(app)
       .get("/user/phone-unverified")
       .set("Authorization", apiKey);
@@ -127,6 +127,7 @@ describe("User", () => {
     const user = res.body;
     expect(user.phoneVerified).toBe(false);
     expect(user.emailVerified).toBe(true);
+    expect(user.isUnderVerification).toBe(false);
   });
 
   afterAll(async () => {

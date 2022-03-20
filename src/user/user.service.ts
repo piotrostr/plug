@@ -22,6 +22,7 @@ export class UserService {
         isCurrentlyUsed: false,
         phoneVerified: true,
         emailVerified: true,
+        isUnderVerification: false,
       },
       { isCurrentlyUsed: true },
     );
@@ -39,6 +40,7 @@ export class UserService {
       {
         phoneVerified: false,
         emailVerified: true,
+        isUnderVerification: false,
       },
       {
         isUnderVerification: true,
