@@ -130,6 +130,17 @@ describe("User", () => {
     expect(user.isUnderVerification).toBe(false);
   });
 
+  test("it returns mail unverified, currently not under verifiaction", async () => {
+    const res = await request(app)
+      .get("/user/mail-unverified")
+      .set("Authorization", apiKey);
+    expect(res.status).toBe(200);
+    const user = res.body;
+    expect(user.token).toBeTruthy();
+    expect(user.emailVerified).toBe(false);
+    expect(user.isUnderVerification).toBe(false);
+  });
+
   afterAll(async () => {
     await application.close();
     await closeInMongodbConnection();
