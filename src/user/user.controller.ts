@@ -32,4 +32,10 @@ export class UserController {
   async getPhoneUnverifiedUser(): Promise<User> {
     return await this.userService.getPhoneUnverifiedUser();
   }
+
+  @Get("mail-unverified")
+  @UseGuards(AuthGuard("apiKey"))
+  async getMailUnverifiedUser(): Promise<User> {
+    return await this.userService.getMailUnverifiedUser();
+  }
 }

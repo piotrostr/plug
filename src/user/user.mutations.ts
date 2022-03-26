@@ -43,6 +43,4 @@ export class UpdateUserInput extends PartialType(CreateUserInput) {
 
   @Field(() => Boolean)
   phoneVerified: boolean;
-
-  // add rest
 }

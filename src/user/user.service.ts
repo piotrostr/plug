@@ -36,7 +36,7 @@ export class UserService {
   }
 
   async getPhoneUnverifiedUser(): Promise<User> {
-    const unverifiedUser = this.userModel.findOneAndUpdate(
+    const phoneUnverifiedUser = this.userModel.findOneAndUpdate(
       {
         phoneVerified: false,
         emailVerified: true,
@@ -46,6 +46,19 @@ export class UserService {
         isUnderVerification: true,
       },
     );
-    return await unverifiedUser.exec();
+    return await phoneUnverifiedUser.exec();
+  }
+
+  async getMailUnverifiedUser(): Promise<User> {
+    const mailUnverifiedUser = this.userModel.findOneAndUpdate(
+      {
+        emailVerified: false,
+        isUnderVerification: false,
+      },
+      {
+        isUnderVerification: true,
+      },
+    );
+    return await mailUnverifiedUser.exec();
   }
 }

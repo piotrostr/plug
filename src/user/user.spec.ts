@@ -119,7 +119,7 @@ describe("User", () => {
     expect(res.body).toEqual({});
   });
 
-  test("it returns phone unverified, currently not under verifiaction", async () => {
+  test("it returns phone unverified, currently not under verification", async () => {
     const res = await request(app)
       .get("/user/phone-unverified")
       .set("Authorization", apiKey);
@@ -130,7 +130,7 @@ describe("User", () => {
     expect(user.isUnderVerification).toBe(false);
   });
 
-  test("it returns mail unverified, currently not under verifiaction", async () => {
+  test("it returns mail unverified, currently not under verification", async () => {
     const res = await request(app)
       .get("/user/mail-unverified")
       .set("Authorization", apiKey);
