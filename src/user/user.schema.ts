@@ -46,7 +46,7 @@ export class User {
   emailVerified: boolean;
 
   @Prop({ type: String })
-  xSuperProperties: boolean;
+  sessionId: string;
 }
 
 export type UserDocument = User & Document;
