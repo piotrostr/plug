@@ -7,7 +7,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle("Plug API")
-    .setDescription("Plug got proxies and tokens")
+    .setDescription("Plug got tokens")
     .setVersion("1.0")
     .addTag("plug")
     .build();

@@ -3,7 +3,6 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { MongooseModule } from "@nestjs/mongoose";
 import { UserModule } from "./user/user.module";
-import { ProxyModule } from "./proxy/proxy.module";
 import { ConfigModule } from "@nestjs/config";
 import { AuthModule } from "./auth/auth.module";
 
@@ -16,7 +15,6 @@ import { AuthModule } from "./auth/auth.module";
       pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
     }),
     UserModule,
-    ProxyModule,
     AuthModule,
   ],
   controllers: [AppController],

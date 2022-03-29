@@ -44,6 +44,9 @@ export class User {
 
   @Prop({ type: Boolean, default: false })
   emailVerified: boolean;
+
+  @Prop({ type: String })
+  xSuperProperties: boolean;
 }
 
 export type UserDocument = User & Document;
