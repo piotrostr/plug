@@ -1,7 +1,6 @@
 <h1 align="center">
   Plug 🔌 
 </h1>
-<br />
 <div align="center">
   <a href="https://github.com/piotrostr/plug/blob/HEAD/MIT">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="mit" />
