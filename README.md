@@ -3,10 +3,6 @@
 </h1>
 <br />
 <div align="center">
-  NestJS api to serve as a connector server between generators and messengers
-</div>
-<br />
-<div align="center">
   <a href="https://github.com/piotrostr/plug/blob/HEAD/MIT">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="mit" />
   </a>
