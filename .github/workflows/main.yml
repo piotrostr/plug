@@ -9,6 +9,18 @@ env:
 jobs:
   test:
     runs-on: ubuntu-20.04
+
+    services:
+      db:
+        image: mongo
+        ports:
+          - 27017:27017
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          MONGO_HOST: ${{ secrets.MONGO_HOST }}
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+
     steps:
       - uses: actions/checkout@master
 
